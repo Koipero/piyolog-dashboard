@@ -11,9 +11,12 @@
 *{box-sizing:border-box}html{background:#eae8df;color:#201f1a;font-family:Arial,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-variant-numeric:tabular-nums}body{margin:0;padding:2.6vw}main,footer,.settings,details,.status-panel{max-width:1350px;margin:auto}main{display:table;width:100%;table-layout:fixed;border-bottom:1px solid #69685e}.side,.panel{display:table-cell;vertical-align:top}.side{width:29%;padding-right:2vw;border-right:1px solid}.panel{padding-left:2.4vw}h1,h2,p{margin:0}h2,.label{font-size:17px;font-weight:500}.date{font-size:23px}.digits{font-family:"Arial Narrow",Arial,sans-serif;font-size:8.4vw;font-weight:750;letter-spacing:-.075em;line-height:1.14;white-space:nowrap}.side .digits{font-size:8.7vw}.rule{border-top:1px solid #737268;margin-top:14px;padding-top:12px}.pair,.hero,.totals,.axis,.footline{display:flex;align-items:center;justify-content:space-between}.pair{align-items:flex-start;padding:12px 0}.pair>div{width:50%}.pair>div+div{border-left:1px solid;padding-left:10px}.pair strong{display:block;font-size:3.4vw}.sideNote,.note,footer,.axis{font-size:13px;color:#59584f}.hero>div:first-child{min-width:47%}.recent{flex:1;padding-left:2%;font-size:16px}.recent p{margin:9px 0}.recent b{font-size:1.65vw;display:inline-block}.recent span{display:block;font-size:13px}.totals{align-items:flex-end;margin:14px 0 9px}.totals strong{font-size:25px}.totals small{display:block}.chart{width:51%}.plot{height:37px;border-bottom:1px solid;position:relative}.bar{position:absolute;bottom:0;width:5px;background:#25241f;transform:translateX(-50%)}.axis{font-size:11px}.ledger{padding:9px 0 15px}.ledger div{display:flex;border-bottom:1px dotted #aca99e;padding:9px 0;align-items:baseline}.ledger b{width:28%;font-weight:500}.ledger span{flex:1;font-weight:bold;letter-spacing:.02em}.entry{padding:6px 0}.entry-time{margin-right:1em}.footline{font-size:13px;flex-wrap:wrap}.footline>*{margin:4px 0}.status-panel{padding:9px 0}.error{font-weight:bold}.settings,details{padding:9px 0;border-top:1px solid #aaa89c}summary,button{cursor:pointer}input,button{font:inherit;padding:10px}input{width:100%;margin:8px 0;background:#faf9f4;border:1px solid}button{background:#282721;color:white;border:0;margin:0 5px 5px 0}details p,footer{font-size:13px;padding:6px 0}.settings p{line-height:1.5}.sideInfo{margin:8px 0 17px}.sideInfo b{display:block;font-size:20px;padding:3px 0}.note{margin-left:.5em}
 @media(min-width:1450px){.digits,.side .digits{font-size:124px}.recent b{font-size:26px}}
 @media(max-width:620px) and (orientation:portrait){body{padding:16px}main,.side,.panel{display:block;width:100%}.side{border:0;padding:0}.side .digits{font-size:21vw}.side .rule{margin:5px 0;padding:5px 0}.sideInfo{display:inline-block;margin:3px 15px 7px 0}.sideInfo b{font-size:16px}.pair{padding:4px 0}.pair strong{font-size:26px}.panel{padding:12px 0 0;border-top:1px solid}.digits{font-size:16vw}.recent b{font-size:16px}.recent span{font-size:12px}.totals strong{font-size:20px}.ledger b{width:30%}}
+#screen{width:100%}#board{transform-origin:top center}.history{display:flex;max-width:1350px;margin:auto;border-top:1px solid #aaa89c;padding:4px 0}.history>div{width:50%}.history .entry{padding:2px 0}
+@media(orientation:landscape){body{padding:6px 1.4vw}.history .entry{display:inline-block;width:50%;vertical-align:top;font-size:13px}.history .entry-time{display:block;margin:0}.history h2{font-size:14px}.rule{margin-top:5px;padding-top:4px}.ledger{padding:2px 0}.ledger div{padding:3px 0}.sideInfo{margin:3px 0}.pair,.status-panel,.settings{padding:4px 0}.totals{margin:3px 0}.digits,.side .digits{font-size:8vw}.recent p{margin:3px 0}}
+@media(orientation:portrait){.history{display:block}.history>div{width:auto}}
 </style></head><body>
 <noscript>時計の表示にはJavaScriptが必要です。ブラウザで開いてください。</noscript>
-<main aria-label="育児ダッシュボード"><section class="side">
+<div id="screen"><div id="board"><main aria-label="育児ダッシュボード"><section class="side">
 <div id="date" class="date">日本時間</div><div id="clock" class="digits">--:--</div>
 <div class="rule"><h2>今日のおむつ</h2><div class="pair"><div>おしっこ<strong id="pee">—</strong></div><div>うんち<strong id="poop">—</strong></div></div></div>
 <div class="rule"><div class="sideInfo">前回のおしっこ<b id="lastPee">—</b></div><div class="sideInfo">前回のうんち<b id="lastPoop">—</b></div></div>
@@ -23,7 +26,7 @@
 <div class="rule"><h2>今日のお世話</h2><div class="ledger" id="care"></div></div>
 </section></main>
 <div class="status-panel" role="status"><div class="footline"><b id="connection-state">サンプル</b><span>最終取得　<span id="updated">—</span></span></div><div class="sideNote" id="message"></div></div>
-<details><summary>最近の育児記録</summary><div id="events"></div><h2>最近の授乳</h2><div id="formulas"></div></details>
+<section class="history"><div><h2>最近の育児記録</h2><div id="events"></div></div><div><h2>最近の授乳</h2><div id="formulas"></div></div></section>
 <details class="card settings">
 <summary>ぴよログ データフィード設定</summary>
 <p>ぴよログで発行した「https://feed.piyolog.com/...」のURLを入力してください。このURLは公開HTMLには含まれません。端末への自動保存もしません（ページを再読み込みすると再入力が必要です）。</p>
@@ -31,8 +34,9 @@
 <input id="feed" type="password" placeholder="公式フィードURLを貼り付け" autocomplete="off" autocapitalize="off" spellcheck="false">
 <button id="connect" type="button">取得して表示</button><button id="sample" class="secondary" type="button">サンプル表示</button>
 <p>取得成功後は約65秒ごとに自動更新します。ブラウザがバックグラウンドになると定期更新が止まる場合があります。URLの秘密情報をGitHubやSNSに書き込まないでください。</p>
-</details>
 <footer>フィードは取得した時点の記録のスナップショットです。無料の24時間フィードでは約1分間キャッシュされます。授乳の目安は本人の様子や医療者の指示より優先しません。</footer>
+</details>
+</div></div>
 <script>
 (function(){
 'use strict';
@@ -122,6 +126,7 @@ function tick(){
   txt('date',jshort(now)+'（'+['日','月','火','水','木','金','土'][d.getUTCDay()]+'）');
   txt('clock',jtime(now));
   if(day!==today() && (!url || lastSuccess))render(lastRows);
+  fitScreen();
 }
 function reset(){
   if(active){var previous=active;active=null;previous.abort();}
@@ -177,8 +182,25 @@ function sample(){
   txt('connection-state','サンプル（架空の記録）');
   state('実データを表示するには「ぴよログ データフィード設定」を開いてください。',false);
 }
+function fitScreen(){
+  var frame=byId('screen'), board=byId('board');
+  if(!frame || !board || !board.getBoundingClientRect)return;
+  var setup=document.querySelector('.settings');
+  if(window.innerWidth<=window.innerHeight || setup.open){
+    frame.style.height='auto';frame.style.overflow='visible';board.style.transform='none';return;
+  }
+  var available=window.innerHeight-frame.getBoundingClientRect().top-window.pageYOffset-7;
+  var height=board.offsetHeight;
+  if(height && available>0){
+    var scale=Math.min(1,available/height);
+    board.style.transform='scale('+scale+')';
+    frame.style.height=Math.ceil(height*scale)+'px';
+    frame.style.overflow='hidden';
+  }
+}
 function init(){
-  sample();tick();
+  sample();tick();fitScreen();
+  window.addEventListener("resize",fitScreen);document.querySelector(".settings").addEventListener("toggle",fitScreen);
   
   byId('connect').onclick=function(){
     var value=byId('feed').value.replace(/^\s+|\s+$/g,'');
