@@ -8,75 +8,22 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>ぴよログ 育児ダッシュボード</title>
 <style>
-*{box-sizing:border-box}
-html{background:#f1f5f8;color:#253348;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,Arial,sans-serif}
-body{margin:0;padding:12px}
-.wrapper{max-width:1200px;margin:0 auto}
-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:0 4px 10px}
-h1{font-size:18px;margin:0;letter-spacing:.02em}
-.chip{padding:6px 10px;border-radius:99px;font-size:12px;background:#fde9de;color:#883c21;font-weight:bold}
-.chip.ok{background:#e2f4eb;color:#0f7652}
-.grid-top{display:grid;grid-template-columns:1fr 1.55fr;gap:12px}
-.card{background:white;border:1px solid #e2e8ed;border-radius:16px;padding:19px;box-shadow:0 2px 12px rgba(20,42,60,.035)}
-.muted{color:#6d7d8e}.section-label{color:#687a8d;font-size:15px;font-weight:600}
-#date{font-size:15px;margin-bottom:5px}
-#clock{font-size:clamp(44px,8vw,86px);font-weight:800;letter-spacing:-.06em;line-height:1.08;font-variant-numeric:tabular-nums}
-#next{font-size:clamp(42px,7vw,76px);font-weight:800;letter-spacing:-.05em;line-height:1.1;font-variant-numeric:tabular-nums;margin:3px 0 8px}
-.subnote{font-size:12px;color:#84909e}
-.stat-grid{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px}
-.stat .number{display:block;font-size:25px;font-weight:800;margin-top:3px}
-.grid-bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-h2{font-size:16px;margin:0 0 10px}
-.entry{border-top:1px solid #edf0f4;padding:10px 0;font-size:15px}
-.entry:first-child{border:0}
-.entry-time{display:inline-block;min-width:85px;color:#728194;font-variant-numeric:tabular-nums}
-#summary{font-size:15px;margin:12px 0 0;color:#415569}
-.settings{margin-top:12px}
-.settings summary{font-weight:bold;cursor:pointer;font-size:17px}
-.settings p{color:#5b6e7f;font-size:13px;line-height:1.65;margin:10px 0}
-input{display:block;width:100%;padding:13px;border:1px solid #adbac7;border-radius:8px;font-size:16px;margin:10px 0;background:white;color:#203247}
-button{font-family:inherit;background:#254869;border:0;border-radius:9px;color:white;font-weight:bold;padding:12px 16px;font-size:15px;cursor:pointer;margin:0 6px 8px 0;min-height:44px}
-button.secondary{background:#e9eef3;color:#34485c}
-.status-panel{margin-top:8px;padding:12px;background:#f5f7fa;border-radius:9px;font-size:13px;line-height:1.65;word-wrap:break-word}
-#message{color:#355d7c} #message.error{color:#ac312e}
-#js-state{font-weight:700}
-footer{color:#738394;font-size:12px;line-height:1.6;padding:12px 4px}
-.noscript{background:#fff0e5;color:#913c26;border-radius:9px;padding:12px;margin-bottom:10px}
-@media(max-width:680px){body{padding:8px}.grid-top,.grid-bottom{grid-template-columns:1fr}.card{padding:15px}.grid-top{gap:8px}.grid-bottom{margin-top:8px;gap:8px}#clock{font-size:57px}#next{font-size:54px}}
-#clock{font-size:58px}#next{font-size:52px}.stat{margin:0 14px 6px 0}.stat-grid{gap:0}
-.grid-top,.grid-bottom{display:block}.grid-top>.card,.grid-bottom>.card{margin-bottom:8px}
-@media(min-width:640px){.grid-top,.grid-bottom{display:table;width:100%;table-layout:fixed;border-spacing:6px 0}.grid-top>.card,.grid-bottom>.card{display:table-cell;vertical-align:top}.grid-top>.card:first-child{width:36%}}
-@media(orientation:landscape) and (max-height:650px){.card{padding:12px}.entry{padding:5px 0}.settings{padding:10px}}
-#message{margin:5px 0}.entry{overflow-wrap:break-word}#next-day{font-size:14px}
-</style>
-</head>
-<body>
-<div class="wrapper">
-<header><h1>育児ダッシュボード</h1><span class="chip" id="js-chip">JavaScript 未確認</span></header>
-<noscript><div class="noscript">JavaScriptが無効です。iPhoneの「ファイル」プレビューではなく、HTTPSのWebページをSafariで開いてください。</div></noscript>
-<div class="grid-top">
-<section class="card">
-<div class="muted" id="date">日付を読み込み中</div>
-<div id="clock">--:--</div>
-<div class="subnote">日本標準時（JST）</div>
-<div id="summary">現在はサンプルを表示しています</div>
-</section>
-<section class="card">
-<div class="section-label">次回授乳の目安</div>
-<span id="next-day"></span><div id="next">--:--</div>
-<div class="subnote">直近最大4回の授乳間隔（12時間未満）の平均から計算した参考値（医学的な指示ではありません）</div>
-<div class="stat-grid"><div class="stat"><span class="section-label">今日の授乳</span><span id="feeds" class="number">--回</span></div>
- <div class="stat"><span class="section-label">今日のミルク</span><span class="number" id="total">-- ml</span><span id="milk-count" class="muted">--回</span></div>
- <div class="stat"><span class="section-label">今日のおしっこ</span><span class="number" id="pee">--回</span></div>
- <div class="stat"><span class="section-label">今日のうんち</span><span class="number" id="poop">--回</span></div>
-</div>
-</section>
-</div>
-<div class="status-panel" role="status"><strong id="connection-state">サンプル</strong>　最終取得（日本時間） <span id="updated">—</span><div id="message">時計が動かない場合は、ブラウザで公開ページを開いてください。</div></div>
-<div class="grid-bottom">
-<section class="card"><h2>最近の授乳</h2><div id="formulas">読み込み中</div></section>
-<section class="card"><h2>最近の育児記録</h2><div id="events">読み込み中</div></section>
-</div>
+*{box-sizing:border-box}html{background:#eae8df;color:#201f1a;font-family:Arial,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;font-variant-numeric:tabular-nums}body{margin:0;padding:2.6vw}main,footer,.settings,details,.status-panel{max-width:1350px;margin:auto}main{display:table;width:100%;table-layout:fixed;border-bottom:1px solid #69685e}.side,.panel{display:table-cell;vertical-align:top}.side{width:29%;padding-right:2vw;border-right:1px solid}.panel{padding-left:2.4vw}h1,h2,p{margin:0}h2,.label{font-size:17px;font-weight:500}.date{font-size:23px}.digits{font-family:"Arial Narrow",Arial,sans-serif;font-size:8.4vw;font-weight:750;letter-spacing:-.075em;line-height:1.14;white-space:nowrap}.side .digits{font-size:8.7vw}.rule{border-top:1px solid #737268;margin-top:14px;padding-top:12px}.pair,.hero,.totals,.axis,.footline{display:flex;align-items:center;justify-content:space-between}.pair{align-items:flex-start;padding:12px 0}.pair>div{width:50%}.pair>div+div{border-left:1px solid;padding-left:10px}.pair strong{display:block;font-size:3.4vw}.sideNote,.note,footer,.axis{font-size:13px;color:#59584f}.hero>div:first-child{min-width:47%}.recent{flex:1;padding-left:2%;font-size:16px}.recent p{margin:9px 0}.recent b{font-size:1.65vw;display:inline-block}.recent span{display:block;font-size:13px}.totals{align-items:flex-end;margin:14px 0 9px}.totals strong{font-size:25px}.totals small{display:block}.chart{width:51%}.plot{height:37px;border-bottom:1px solid;position:relative}.bar{position:absolute;bottom:0;width:5px;background:#25241f;transform:translateX(-50%)}.axis{font-size:11px}.ledger{padding:9px 0 15px}.ledger div{display:flex;border-bottom:1px dotted #aca99e;padding:9px 0;align-items:baseline}.ledger b{width:28%;font-weight:500}.ledger span{flex:1;font-weight:bold;letter-spacing:.02em}.entry{padding:6px 0}.entry-time{margin-right:1em}.footline{font-size:13px;flex-wrap:wrap}.footline>*{margin:4px 0}.status-panel{padding:9px 0}.error{font-weight:bold}.settings,details{padding:9px 0;border-top:1px solid #aaa89c}summary,button{cursor:pointer}input,button{font:inherit;padding:10px}input{width:100%;margin:8px 0;background:#faf9f4;border:1px solid}button{background:#282721;color:white;border:0;margin:0 5px 5px 0}details p,footer{font-size:13px;padding:6px 0}.settings p{line-height:1.5}.sideInfo{margin:8px 0 17px}.sideInfo b{display:block;font-size:20px;padding:3px 0}.note{margin-left:.5em}
+@media(min-width:1450px){.digits,.side .digits{font-size:124px}.recent b{font-size:26px}}
+@media(max-width:620px) and (orientation:portrait){body{padding:16px}main,.side,.panel{display:block;width:100%}.side{border:0;padding:0}.side .digits{font-size:21vw}.side .rule{margin:5px 0;padding:5px 0}.sideInfo{display:inline-block;margin:3px 15px 7px 0}.sideInfo b{font-size:16px}.pair{padding:4px 0}.pair strong{font-size:26px}.panel{padding:12px 0 0;border-top:1px solid}.digits{font-size:16vw}.recent b{font-size:16px}.recent span{font-size:12px}.totals strong{font-size:20px}.ledger b{width:30%}}
+</style></head><body>
+<noscript>時計の表示にはJavaScriptが必要です。ブラウザで開いてください。</noscript>
+<main aria-label="育児ダッシュボード"><section class="side">
+<div id="date" class="date">日本時間</div><div id="clock" class="digits">--:--</div>
+<div class="rule"><h2>今日のおむつ</h2><div class="pair"><div>おしっこ<strong id="pee">—</strong></div><div>うんち<strong id="poop">—</strong></div></div></div>
+<div class="rule"><div class="sideInfo">前回のおしっこ<b id="lastPee">—</b></div><div class="sideInfo">前回のうんち<b id="lastPoop">—</b></div></div>
+</section><section class="panel"><div class="hero"><div><h2>次回授乳の目安<span class="note" id="next-day"></span></h2><div class="digits" id="next">--:--</div></div>
+<div class="recent"><p><span>前回</span><b id="summary">—</b></p><p><span>前々回</span><b id="previous">—</b></p></div></div>
+<div class="totals"><div><small>今日のミルク</small><strong id="total">—</strong><small id="milk-count"></small></div><div><small>授乳</small><strong id="feeds">—</strong></div><div class="chart"><div class="plot" id="plot" aria-label="今日の授乳時刻"></div><div class="axis"><span>0</span><span>6</span><span>12</span><span>18</span><span>24時</span></div></div></div>
+<div class="rule"><h2>今日のお世話</h2><div class="ledger" id="care"></div></div>
+</section></main>
+<div class="status-panel" role="status"><div class="footline"><b id="connection-state">サンプル</b><span>最終取得　<span id="updated">—</span></span></div><div class="sideNote" id="message"></div></div>
+<details><summary>最近の育児記録</summary><div id="events"></div><h2>最近の授乳</h2><div id="formulas"></div></details>
 <details class="card settings">
 <summary>ぴよログ データフィード設定</summary>
 <p>ぴよログで発行した「https://feed.piyolog.com/...」のURLを入力してください。このURLは公開HTMLには含まれません。端末への自動保存もしません（ページを再読み込みすると再入力が必要です）。</p>
@@ -86,7 +33,6 @@ footer{color:#738394;font-size:12px;line-height:1.6;padding:12px 4px}
 <p>取得成功後は約65秒ごとに自動更新します。ブラウザがバックグラウンドになると定期更新が止まる場合があります。URLの秘密情報をGitHubやSNSに書き込まないでください。</p>
 </details>
 <footer>フィードは取得した時点の記録のスナップショットです。無料の24時間フィードでは約1分間キャッシュされます。授乳の目安は本人の様子や医療者の指示より優先しません。</footer>
-</div>
 <script>
 (function(){
 'use strict';
@@ -139,12 +85,41 @@ function render(rows){
   next=gaps?Date.parse(feeds[0].datetime)+elapsed/gaps:null;
   txt('next',next===null?'--:--':jtime(next));
   txt('next-day',next===null?'間隔データ不足':jday(next)===day?'今日':jshort(next));
-  txt('summary',feeds.length?'前回の授乳　'+jshort(feeds[0].datetime)+' '+jtime(feeds[0].datetime)+'　'+recordLabel(feeds[0]):'授乳の記録なし');
+  function when(record){
+    return (jday(record.datetime)===day?'':jshort(record.datetime)+' ')+jtime(record.datetime);
+  }
+  function recent(record){
+    return record?when(record)+'　'+recordLabel(record):'—';
+  }
+  txt('summary',recent(feeds[0]));txt('previous',recent(feeds[1]));
+  var plot=byId('plot'),care=byId('care');
+  plot.textContent='';care.textContent='';
+  for(i=0;i<feeds.length;i++){
+    r=feeds[i];if(jday(r.datetime)!==day)continue;
+    var time=tokyoDate(r.datetime),bar=document.createElement('i');
+    bar.className='bar';
+    bar.style.left=((time.getUTCHours()*60+time.getUTCMinutes())/1440*100)+'%';
+    bar.style.height='24px';bar.title=recent(r);plot.appendChild(bar);
+  }
+  var kinds=['Pee','Poop','Temperature','Medicine','Bath'];
+  for(var k=0;k<kinds.length;k++){
+    var kind=kinds[k],times=[],latest=null;
+    for(i=0;i<rows.length;i++){
+      r=rows[i];if(r.type!==kind)continue;
+      if(!latest)latest=r;
+      if(jday(r.datetime)===day)times.push(jtime(r.datetime)+(kind==='Temperature' && r.value && r.value.unit==='celsius' && amount(r)!==null?' ('+amount(r)+'℃)':''));
+    }
+    if(kind==='Pee'||kind==='Poop')txt(kind==='Pee'?'lastPee':'lastPoop',latest?when(latest):'—');
+    var line=document.createElement('div'),label=document.createElement('b'),values=document.createElement('span');
+    label.textContent=name({type:kind});values.textContent=times.length?times.slice(0,4).reverse().join('　'):'—';
+    if(times.length>4)values.textContent='…　'+values.textContent;
+    line.appendChild(label);line.appendChild(values);care.appendChild(line);
+  }
   showItems('formulas',feeds,day);showItems('events',rows,day);
 }
 function tick(){
   var now=new Date(), d=tokyoDate(now);
-  txt('date',jday(now)+'（'+['日','月','火','水','木','金','土'][d.getUTCDay()]+'）');
+  txt('date',jshort(now)+'（'+['日','月','火','水','木','金','土'][d.getUTCDay()]+'）');
   txt('clock',jtime(now));
   if(day!==today() && (!url || lastSuccess))render(lastRows);
 }
@@ -204,7 +179,7 @@ function sample(){
 }
 function init(){
   sample();tick();
-  txt('js-chip','時計動作中');byId('js-chip').className='chip ok';
+  
   byId('connect').onclick=function(){
     var value=byId('feed').value.replace(/^\s+|\s+$/g,'');
     if(!/^https:\/\/feed\.piyolog\.com\/v1\/feed\/[\w-]+\/[\w.-]+\/[\w.-]+$/.test(value)){
@@ -222,7 +197,7 @@ function init(){
   setInterval(request,65000);
   document.addEventListener('visibilitychange',function(){if(!document.hidden){tick();request();}});
 }
-try{init();}catch(e){txt('js-chip','初期化エラー');state('画面の初期化に失敗しました。ブラウザでページを再読み込みしてください。',true);}
+try{init();}catch(e){state('画面の初期化に失敗しました。ブラウザでページを再読み込みしてください。',true);}
 })();
 </script>
 </body>
